@@ -1,5 +1,7 @@
 import { Sprout, IndianRupee, Wheat, Warehouse, Tractor, Users2, Home, Settings } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import Link from "next/link"
+import { ChevronRight } from "lucide-react"
 
 export function CoreFunctions() {
   const functions = [
@@ -107,6 +109,16 @@ export function CoreFunctions() {
               </Card>
             )
           })}
+        </div>
+
+        <div className="text-center mt-12">
+          <Link
+            href="/core-functions"
+            className="inline-flex items-center justify-center px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors"
+          >
+            View Detailed Explanations
+            <ChevronRight className="w-5 h-5 ml-2" />
+          </Link>
         </div>
       </div>
     </section>

@@ -1,82 +1,96 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import Link from "next/link"
 
 export function LoanSchemes() {
   const loans = [
     {
       name: "Short-Term Crop Loans",
+      slug: "short-term-crop-loans",
       description: "Seasonal agricultural loans for cultivation expenses",
       features: ["Up to ₹3 lakh", "Interest subsidy", "3-12 months tenure"],
       category: "Agricultural",
     },
     {
       name: "Medium-Term Agricultural Loans",
+      slug: "medium-term-agricultural-loans",
       description: "Loans for farm development and equipment purchase",
       features: ["₹50,000 - ₹10 lakh", "Flexible repayment", "2-5 years tenure"],
       category: "Agricultural",
     },
     {
       name: "Long-Term Farm Development",
+      slug: "long-term-farm-development",
       description: "Infrastructure development and land improvement loans",
       features: ["Up to ₹25 lakh", "Subsidy eligible", "5-15 years tenure"],
       category: "Development",
     },
     {
       name: "Jewel/Gold Loan",
+      slug: "jewel-gold-loan",
       description: "Secured loans against gold ornaments and jewelry",
       features: ["Quick processing", "Flexible tenure", "Competitive rates"],
       category: "Personal",
     },
     {
       name: "Self-Help Group (SHG) Loans",
+      slug: "self-help-group-shg-loans",
       description: "Credit support for women SHGs and joint liability groups",
       features: ["Group lending", "Low interest", "Skill development"],
       category: "Group",
     },
     {
       name: "Kisan Credit Card (KCC)",
+      slug: "kisan-credit-card-kcc",
       description: "Revolving credit facility for agricultural needs",
       features: ["₹3 lakh limit", "2% interest subsidy", "Renewal benefits"],
       category: "Agricultural",
     },
     {
       name: "Farm Machinery Loan",
+      slug: "farm-machinery-loan",
       description: "Purchase of tractors, harvesters, and farm equipment",
       features: ["Up to 85% finance", "Subsidy available", "7 years tenure"],
       category: "Equipment",
     },
     {
       name: "Micro-enterprise Loans",
+      slug: "micro-enterprise-loans",
       description: "Support for small businesses and rural enterprises",
       features: ["₹10,000 - ₹10 lakh", "Working capital", "Easy eligibility"],
       category: "Business",
     },
     {
       name: "Tractor Loan",
+      slug: "tractor-loan",
       description: "Specialized financing for tractor purchase",
       features: ["Up to ₹15 lakh", "Subsidy eligible", "7 years repayment"],
       category: "Equipment",
     },
     {
       name: "Dairy / Livestock Loan",
+      slug: "dairy-livestock-loan",
       description: "Purchase of cattle, goats, poultry, and dairy equipment",
       features: ["₹50,000 - ₹5 lakh", "Insurance support", "3-5 years"],
       category: "Livestock",
     },
     {
       name: "Rural Housing Loan",
+      slug: "rural-housing-loan",
       description: "Construction and renovation of rural houses",
       features: ["Up to ₹10 lakh", "PM Awas Yojana", "15 years tenure"],
       category: "Housing",
     },
     {
       name: "Consumption Loan",
+      slug: "consumption-loan",
       description: "Personal loans for household expenses and emergencies",
       features: ["₹10,000 - ₹1 lakh", "Quick disbursal", "Short tenure"],
       category: "Personal",
     },
     {
       name: "Emergency Loan",
+      slug: "emergency-loan",
       description: "Urgent financial assistance for unforeseen circumstances",
       features: ["Fast approval", "Flexible terms", "Member priority"],
       category: "Emergency",
@@ -108,27 +122,29 @@ export function LoanSchemes() {
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {loans.map((loan, index) => (
-            <Card key={index} className="border-border hover:shadow-lg transition-all hover:-translate-y-1">
-              <CardHeader>
-                <div className="flex items-start justify-between mb-2">
-                  <Badge variant="outline" className={categoryColors[loan.category]}>
-                    {loan.category}
-                  </Badge>
-                </div>
-                <CardTitle className="text-lg text-foreground">{loan.name}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground mb-4 leading-relaxed">{loan.description}</p>
-                <div className="space-y-2">
-                  {loan.features.map((feature, idx) => (
-                    <div key={idx} className="flex items-start gap-2 text-sm">
-                      <span className="text-primary font-bold mt-0.5">✓</span>
-                      <span className="text-muted-foreground">{feature}</span>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+            <Link key={index} href={`/loan-schemes/${loan.slug}`}>
+              <Card className="border-border hover:shadow-lg transition-all hover:-translate-y-1 h-full cursor-pointer">
+                <CardHeader>
+                  <div className="flex items-start justify-between mb-2">
+                    <Badge variant="outline" className={categoryColors[loan.category]}>
+                      {loan.category}
+                    </Badge>
+                  </div>
+                  <CardTitle className="text-lg text-foreground">{loan.name}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-muted-foreground mb-4 leading-relaxed">{loan.description}</p>
+                  <div className="space-y-2">
+                    {loan.features.map((feature, idx) => (
+                      <div key={idx} className="flex items-start gap-2 text-sm">
+                        <span className="text-primary font-bold mt-0.5">✓</span>
+                        <span className="text-muted-foreground">{feature}</span>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </Link>
           ))}
         </div>
       </div>
