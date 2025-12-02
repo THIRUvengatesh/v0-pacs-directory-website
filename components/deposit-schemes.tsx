@@ -1,7 +1,19 @@
+"use client"
+
+import { useState } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Wallet, TrendingUp, PiggyBank, Users, Baby, CalendarDays } from "lucide-react"
+import { DepositSchemeModal } from "./deposit-scheme-modal"
 
 export function DepositSchemes() {
+  const [selectedScheme, setSelectedScheme] = useState<any>(null)
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  const handleSchemeClick = (scheme: any) => {
+    setSelectedScheme(scheme)
+    setIsModalOpen(true)
+  }
+
   const schemes = [
     {
       icon: Wallet,
@@ -54,108 +66,120 @@ export function DepositSchemes() {
   ]
 
   return (
-    <section id="deposits" className="py-16 md:py-24 bg-background">
-      <div className="container mx-auto px-4">
-        <div className="max-w-3xl mx-auto text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground text-balance">
-            Fixed Deposit & Savings Schemes
-          </h2>
-          <p className="text-lg text-muted-foreground leading-relaxed text-pretty">
-            Secure and attractive deposit schemes with competitive interest rates for all age groups and financial goals
-          </p>
-        </div>
+    <>
+      <section id="deposits" className="py-16 md:py-24 bg-background">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground text-balance">
+              Fixed Deposit & Savings Schemes
+            </h2>
+            <p className="text-lg text-muted-foreground leading-relaxed text-pretty">
+              Secure and attractive deposit schemes with competitive interest rates for all age groups and financial
+              goals
+            </p>
+          </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-          {schemes.map((scheme, index) => {
-            const Icon = scheme.icon
-            return (
-              <Card key={index} className="border-border hover:shadow-lg transition-all hover:-translate-y-1">
-                <CardHeader>
-                  <div className="w-12 h-12 bg-primary/10 text-primary rounded-lg flex items-center justify-center mb-3">
-                    <Icon className="w-6 h-6" />
-                  </div>
-                  <CardTitle className="text-lg text-foreground">{scheme.name}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-3 mb-4">
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm text-muted-foreground">Interest Rate</span>
-                      <span className="text-sm font-semibold text-primary">{scheme.interest}</span>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            {schemes.map((scheme, index) => {
+              const Icon = scheme.icon
+              return (
+                <Card
+                  key={index}
+                  className="border-border hover:shadow-lg transition-all hover:-translate-y-1 cursor-pointer"
+                  onClick={() => handleSchemeClick(scheme)}
+                >
+                  <CardHeader>
+                    <div className="w-12 h-12 bg-primary/10 text-primary rounded-lg flex items-center justify-center mb-3">
+                      <Icon className="w-6 h-6" />
                     </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm text-muted-foreground">Tenure</span>
-                      <span className="text-sm font-semibold text-foreground">{scheme.tenure}</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm text-muted-foreground">Min. Amount</span>
-                      <span className="text-sm font-semibold text-foreground">{scheme.minAmount}</span>
-                    </div>
-                  </div>
-                  <div className="space-y-2 pt-3 border-t border-border">
-                    {scheme.features.map((feature, idx) => (
-                      <div key={idx} className="flex items-start gap-2 text-sm">
-                        <span className="text-primary font-bold mt-0.5">•</span>
-                        <span className="text-muted-foreground">{feature}</span>
+                    <CardTitle className="text-lg text-foreground">{scheme.name}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-3 mb-4">
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm text-muted-foreground">Interest Rate</span>
+                        <span className="text-sm font-semibold text-primary">{scheme.interest}</span>
                       </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            )
-          })}
-        </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm text-muted-foreground">Tenure</span>
+                        <span className="text-sm font-semibold text-foreground">{scheme.tenure}</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm text-muted-foreground">Min. Amount</span>
+                        <span className="text-sm font-semibold text-foreground">{scheme.minAmount}</span>
+                      </div>
+                    </div>
+                    <div className="space-y-2 pt-3 border-t border-border">
+                      {scheme.features.map((feature, idx) => (
+                        <div key={idx} className="flex items-start gap-2 text-sm">
+                          <span className="text-primary font-bold mt-0.5">•</span>
+                          <span className="text-muted-foreground">{feature}</span>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="mt-4 text-xs text-primary text-center font-medium">
+                      Click for detailed information →
+                    </div>
+                  </CardContent>
+                </Card>
+              )
+            })}
+          </div>
 
-        {/* Additional Benefits Section */}
-        <div className="bg-card border border-border rounded-lg p-8 max-w-4xl mx-auto">
-          <h3 className="text-xl font-bold mb-6 text-center text-foreground">
-            Member Share Capital & Dividend Benefits
-          </h3>
-          <div className="grid md:grid-cols-2 gap-6">
-            <div>
-              <h4 className="font-semibold mb-3 text-foreground">Share Capital Investment</h4>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li className="flex items-start gap-2">
-                  <span className="text-primary font-bold">•</span>
-                  <span>Mandatory membership share contribution</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-primary font-bold">•</span>
-                  <span>Ownership stake in the cooperative society</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-primary font-bold">•</span>
-                  <span>Voting rights in society elections</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-primary font-bold">•</span>
-                  <span>Refundable upon membership exit</span>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-3 text-foreground">Annual Dividend Distribution</h4>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li className="flex items-start gap-2">
-                  <span className="text-secondary font-bold">•</span>
-                  <span>Profit-sharing based on society performance</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-secondary font-bold">•</span>
-                  <span>Typically 8% - 12% annual dividend</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-secondary font-bold">•</span>
-                  <span>Declared after annual general body meeting</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-secondary font-bold">•</span>
-                  <span>Additional bonus in profitable years</span>
-                </li>
-              </ul>
+          {/* Additional Benefits Section */}
+          <div className="bg-card border border-border rounded-lg p-8 max-w-4xl mx-auto">
+            <h3 className="text-xl font-bold mb-6 text-center text-foreground">
+              Member Share Capital & Dividend Benefits
+            </h3>
+            <div className="grid md:grid-cols-2 gap-6">
+              <div>
+                <h4 className="font-semibold mb-3 text-foreground">Share Capital Investment</h4>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li className="flex items-start gap-2">
+                    <span className="text-primary font-bold">•</span>
+                    <span>Mandatory membership share contribution</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-primary font-bold">•</span>
+                    <span>Ownership stake in the cooperative society</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-primary font-bold">•</span>
+                    <span>Voting rights in society elections</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-primary font-bold">•</span>
+                    <span>Refundable upon membership exit</span>
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="font-semibold mb-3 text-foreground">Annual Dividend Distribution</h4>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li className="flex items-start gap-2">
+                    <span className="text-secondary font-bold">•</span>
+                    <span>Profit-sharing based on society performance</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-secondary font-bold">•</span>
+                    <span>Typically 8% - 12% annual dividend</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-secondary font-bold">•</span>
+                    <span>Declared after annual general body meeting</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-secondary font-bold">•</span>
+                    <span>Additional bonus in profitable years</span>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      <DepositSchemeModal scheme={selectedScheme} open={isModalOpen} onClose={() => setIsModalOpen(false)} />
+    </>
   )
 }
